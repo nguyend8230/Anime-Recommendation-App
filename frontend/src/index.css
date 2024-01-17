@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  font-family: "Comic Sans MS";
+  color: #333;
+  text-decoration: none;
+}
+
+/* recommendations page */
+.recoms_container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  /* justify-content: center; */
+}
+.container p{
+  display: block;
+  /* justify-content: center; */
+}
+.recommendation {
+  display: inline-block;
+  background: #9c3d3d;
+  width: 300px;
+  height: 300px;
+}
+.recommendation img{
+  /* display: inline-block;
+  background: #9c3d3d; */
+  width: 167px;
+  display: block;
+}
