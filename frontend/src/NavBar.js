@@ -17,8 +17,8 @@ function NavBar() {
                     resolve(data);
                 })
                 .catch((error) => {
-                    console.log(error);
                     reject(error);
+                    history.push("/error");
                 });
         });
     }
@@ -26,13 +26,13 @@ function NavBar() {
     async function search_anime() {
         const data = await fetch_data(`https://api.jikan.moe/v4/anime?q=${title}`);
         try {
-            history.push(`/${data.data[0]["mal_id"]}`);
+            history.push(`/anime/${data.data[0]["mal_id"]}`);
         }
         catch(error) {
             console.log(error);
+            history.push("/error");
         }
-        
-        // else go to error page
+
     }
     async function handle_search_bar_key_down(event) {
         if(event.key == "Enter") {

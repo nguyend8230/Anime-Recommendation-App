@@ -1,8 +1,9 @@
 import { useState,useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 
 function Recommendations() {
     const {mal_id} = useParams();
+    const history = useHistory();
     const [anime_info, set_anime_info] = useState(null);
     const [recoms, set_recoms] = useState({});
 
@@ -18,6 +19,7 @@ function Recommendations() {
                 })
                 .catch((error) => {
                     reject(error);
+                    history.push("/error");
                 });
         });
     }
@@ -27,7 +29,7 @@ function Recommendations() {
         async function temp() {
             console.log(`fetched ${mal_id}`);
             try {
-                const data = await fetch_data(`http://localhost:4000/api/recommendations/${mal_id}`);
+                const data = await fetch_data(`http://localhost:4000/api/recommendations/anime/${mal_id}`);
                 for(let anime of data) {
                     recoms[anime["mal_id"]] = anime
                 }
@@ -35,7 +37,7 @@ function Recommendations() {
             }
             catch(error) {
                 console.log(error);
-                // go to 404 page
+                history.push("/error");
             }
         }
         temp();
@@ -60,8 +62,6 @@ function Recommendations() {
             </div>
         );
     }
-
-
 
     return (
         <div className="Recommendations"> 
