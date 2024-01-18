@@ -45,7 +45,7 @@ function NavBar() {
 
     return(
         <div className="NavBar">
-            <label><span>YOUR</span>AnimeList</label>
+            <h1><span>YOUR</span>AnimeList</h1>
             <div className="search_package">
                 <input 
                     type="text" 

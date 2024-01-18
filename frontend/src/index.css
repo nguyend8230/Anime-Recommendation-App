@@ -7,22 +7,32 @@
 .recoms_container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  /* justify-content: center; */
+  gap: 70px;
 }
-.container p{
+.container p {
   display: block;
-  /* justify-content: center; */
+}
+.container h2 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .recommendation {
   display: inline-block;
-  background: #9c3d3d;
+  background: #2e51a2;
   width: 300px;
   height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommendation a {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 .recommendation img{
-  /* display: inline-block;
-  background: #9c3d3d; */
   width: 167px;
-  display: block;
 }

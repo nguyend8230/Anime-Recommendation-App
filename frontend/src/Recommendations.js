@@ -46,16 +46,18 @@ function Recommendations() {
     function display_recommendations(anime_info) {
         return(
             <div className="container">
-                <div className="test">
-                    <h1>recommendations for: {anime_info["title"]}</h1>
-                </div>
+                <h2>Recommendations for: {anime_info["title"]}</h2>
                 <div className="recoms_container">
                     {anime_info["recommendations"].map((id) => 
                         <div className="recommendation" key={id}>  
-                            <a href={recoms[id]["url"]} target="_blank">
-                                <img src={recoms[id]["image_url"]}></img>
-                                {recoms[id]["title"]}
-                            </a>
+                            <div> 
+                                <a href={recoms[id]["url"]} target="_blank">
+                                    <img src={recoms[id]["image_url"]}></img>
+                                </a>
+                                <a href={recoms[id]["url"]} target="_blank">
+                                    {recoms[id]["title"]}
+                                </a>
+                            </div>
                         </div>
                     )}
                 </div>
