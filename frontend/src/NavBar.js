@@ -45,21 +45,26 @@ function NavBar() {
 
     return(
         <div className="NavBar">
-            <p>YOURAnimeList</p>
-            <input 
-                type="text" 
-                id="search_box"
-                spellCheck="false"      
-                value={title}
-                onKeyDown={handle_search_bar_key_down}
-                onChange={(e) => set_title(e.target.value)}
-                placeholder="Search anime...">
-            </input>
-            <button 
-                className="button" 
-                onClick={handle_search_button_click}>
-                
-            Search</button>
+            <label><span>YOUR</span>AnimeList</label>
+            <div className="search_package">
+                <input 
+                    type="text" 
+                    id="search_box"
+                    spellCheck="false"      
+                    value={title}
+                    onKeyDown={handle_search_bar_key_down}
+                    onChange={(e) => set_title(e.target.value)}
+                    placeholder="Search anime..."
+                >
+                </input>
+                <button 
+                    className="button" 
+                    onClick={handle_search_button_click}
+                    id="search_button"
+                >
+                Search
+                </button>
+            </div>
         </div>
     );
 }
