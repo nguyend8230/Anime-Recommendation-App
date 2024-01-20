@@ -1,27 +1,12 @@
-import { useState} from "react";
-import { Link, useHistory } from "react-router-dom"
+import {useState} from "react";
+import {useHistory} from "react-router-dom";
+
+import {fetch_data} from "./Fetch";
 
 function NavBar() {
-    const history = useHistory();
 
+    const history = useHistory();
     const [title, set_title] = useState("");
-    
-    async function fetch_data(url) {
-        return new Promise((resolve,reject) => {
-            fetch(url)
-                .then((response) => {
-                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                    return response.json();
-                })
-                .then((data) => {
-                    resolve(data);
-                })
-                .catch((error) => {
-                    reject(error);
-                    history.push("/error");
-                });
-        });
-    }
 
     async function search_anime() {
         const data = await fetch_data(`https://api.jikan.moe/v4/anime?q=${title}`);
@@ -29,7 +14,6 @@ function NavBar() {
             history.push(`/anime/${data.data[0]["mal_id"]}`);
         }
         catch(error) {
-            console.log(error);
             history.push("/error");
         }
 
@@ -65,6 +49,7 @@ function NavBar() {
                 Search
                 </button>
             </div>
+            
         </div>
     );
 }

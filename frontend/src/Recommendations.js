@@ -1,31 +1,20 @@
-import { useState,useEffect } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
+import {useState,useEffect} from "react";
+import {useParams, useHistory} from "react-router-dom";
+
+import {fetch_data} from "./Fetch";
 
 function Recommendations() {
-    const {mal_id} = useParams();
     const history = useHistory();
-    const [anime_info, set_anime_info] = useState(null);
+    const {mal_id} = useParams();
+    
+    // map between anime to the recommendations of that anime using mal_id
     const [recoms, set_recoms] = useState({});
 
-    async function fetch_data(url) {
-        return new Promise((resolve,reject) => {
-            fetch(url)
-                .then((response) => {
-                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                    return response.json();
-                })
-                .then((data) => {
-                    resolve(data);
-                })
-                .catch((error) => {
-                    reject(error);
-                    history.push("/error");
-                });
-        });
-    }
-    
+    //store the info of the anime that is being recommended
+    const [anime_info, set_anime_info] = useState(null);
+
     useEffect(() => {
-        console.log(`visited ${mal_id}`)
+        console.log(`visited ${mal_id}`);
         async function temp() {
             console.log(`fetched ${mal_id}`);
             try {
@@ -36,7 +25,6 @@ function Recommendations() {
                 set_anime_info(recoms[mal_id]);
             }
             catch(error) {
-                console.log(error);
                 history.push("/error");
             }
         }
@@ -50,14 +38,12 @@ function Recommendations() {
                 <div className="recoms_container">
                     {anime_info["recommendations"].map((id) => 
                         <div className="recommendation" key={id}>  
-                            <div> 
-                                <a href={recoms[id]["url"]} target="_blank">
-                                    <img src={recoms[id]["image_url"]}></img>
-                                </a>
-                                <a href={recoms[id]["url"]} target="_blank">
-                                    {recoms[id]["title"]}
-                                </a>
-                            </div>
+                            <a href={recoms[id]["url"]} target="_blank">
+                                <img src={recoms[id]["image_url"]}></img>
+                            </a>
+                            <a href={recoms[id]["url"]} target="_blank">
+                                {recoms[id]["title"]}
+                            </a>
                         </div>
                     )}
                 </div>

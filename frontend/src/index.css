@@ -4,25 +4,23 @@
 }
 
 /* recommendations page */
-.recoms_container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 70px;
-}
 .container p {
   display: block;
 }
 .container h2 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+.recoms_container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 70px;
+}
+
 .recommendation {
   display: inline-block;
   background: #2e51a2;
   width: 300px;
   height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .recommendation a {
