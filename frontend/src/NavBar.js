@@ -49,7 +49,6 @@ function NavBar() {
                 Search
                 </button>
             </div>
-            
         </div>
     );
 }

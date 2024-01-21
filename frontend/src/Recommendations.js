@@ -8,44 +8,51 @@ function Recommendations() {
     const {mal_id} = useParams();
     
     // map between anime to the recommendations of that anime using mal_id
-    const [recoms, set_recoms] = useState({});
+    const [recommendations, set_recommendations] = useState({});
 
-    //store the info of the anime that is being recommended
-    const [anime_info, set_anime_info] = useState(null);
+    // store the information of each anime
+    const [anime_info, set_anime_info] = useState({});
 
     useEffect(() => {
         console.log(`visited ${mal_id}`);
-        async function temp() {
+        console.log(recommendations);
+        async function fetch_recommendations() {
             console.log(`fetched ${mal_id}`);
             try {
                 const data = await fetch_data(`http://localhost:4000/api/recommendations/anime/${mal_id}`);
                 for(let anime of data) {
-                    recoms[anime["mal_id"]] = anime
+                    anime_info[anime["mal_id"]] = anime;
                 }
-                set_anime_info(recoms[mal_id]);
+                set_recommendations(recommendations => ({ ...recommendations, [mal_id]: anime_info[mal_id]["recommendations"] }));
             }
             catch(error) {
                 history.push("/error");
             }
         }
-        temp();
+
+        if(!(mal_id in recommendations)) {
+            fetch_recommendations();
+        }
+
     },[mal_id]);
 
-    function display_recommendations(anime_info) {
+    function display_recommendations() {
         return(
             <div className="container">
-                <h2>Recommendations for: {anime_info["title"]}</h2>
+                <h2>Recommendations for: {anime_info[mal_id]["title"]}</h2>
                 <div className="recoms_container">
-                    {anime_info["recommendations"].map((id) => 
-                        <div className="recommendation" key={id}>  
-                            <a href={recoms[id]["url"]} target="_blank">
-                                <img src={recoms[id]["image_url"]}></img>
-                            </a>
-                            <a href={recoms[id]["url"]} target="_blank">
-                                {recoms[id]["title"]}
-                            </a>
-                        </div>
-                    )}
+                    {
+                        recommendations[mal_id].map((id) => 
+                            <div className="recommendation" key = {id}> 
+                                <a href={anime_info[id]["url"]} target="_blank">
+                                    <img src={anime_info[id]["image_url"]}></img>
+                                </a>
+                                <a href={anime_info[id]["url"]} target="_blank">
+                                    {anime_info[id]["title"]}
+                                </a>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         );
@@ -53,7 +60,7 @@ function Recommendations() {
 
     return (
         <div className="Recommendations"> 
-            {anime_info && display_recommendations(anime_info)}
+            {recommendations[mal_id] && display_recommendations()}
         </div>
     );
 
