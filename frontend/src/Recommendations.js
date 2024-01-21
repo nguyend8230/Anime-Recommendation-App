@@ -12,10 +12,8 @@ function Recommendations() {
 
     // store the information of each anime
     const [anime_info, set_anime_info] = useState({});
-
     useEffect(() => {
         console.log(`visited ${mal_id}`);
-        console.log(recommendations);
         async function fetch_recommendations() {
             console.log(`fetched ${mal_id}`);
             try {
