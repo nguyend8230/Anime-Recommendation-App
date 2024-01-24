@@ -1,7 +1,8 @@
-import {useState,useEffect} from "react";
+import {useState,useEffect, useContext} from "react";
 import {useParams, useHistory} from "react-router-dom";
 
 import {fetch_data} from "./Fetch";
+import { LoadingContext } from "./contexts/LoadingContext";
 
 function Recommendations() {
     const history = useHistory();
@@ -12,16 +13,20 @@ function Recommendations() {
 
     // store the information of each anime
     const [anime_info, set_anime_info] = useState({});
+
+    const {loading, set_loading} = useContext(LoadingContext);
+    
     useEffect(() => {
         console.log(`visited ${mal_id}`);
         async function fetch_recommendations() {
             console.log(`fetched ${mal_id}`);
             try {
-                const data = await fetch_data(`http://localhost:4000/api/recommendations/anime/${mal_id}`);
+                const data = await fetch_data(`http://localhost:4000/api/anime/recommendations/${mal_id}`);
                 for(let anime of data) {
                     anime_info[anime["mal_id"]] = anime;
                 }
                 set_recommendations(recommendations => ({ ...recommendations, [mal_id]: anime_info[mal_id]["recommendations"] }));
+                set_loading(false);
             }
             catch(error) {
                 history.push("/error");
@@ -30,6 +35,9 @@ function Recommendations() {
 
         if(!(mal_id in recommendations)) {
             fetch_recommendations();
+        }
+        else {
+            set_loading(false);
         }
 
     },[mal_id]);
@@ -58,7 +66,8 @@ function Recommendations() {
 
     return (
         <div className="Recommendations"> 
-            {recommendations[mal_id] && display_recommendations()}
+            {loading && <p>Loading...</p>}
+            {!loading && recommendations[mal_id] && display_recommendations()}
         </div>
     );
 

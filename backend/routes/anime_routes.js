@@ -6,7 +6,7 @@ const {
 
 const router = express.Router();
 
-router.get("/recommendations/anime/:mal_id", get_anime_recommendations);
+router.get("/anime/recommendations/:mal_id", get_anime_recommendations);
 router.get("/anime/:mal_id/", get_anime_info);
 
 

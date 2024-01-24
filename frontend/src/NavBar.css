@@ -21,6 +21,7 @@
 .NavBar h1 {
   font-family: "Impact";
   display: block;
+  cursor: pointer;
   margin: 0;
 }
 label span {
