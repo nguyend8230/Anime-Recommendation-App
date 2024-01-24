@@ -19,6 +19,9 @@ function NavBar() {
         catch(error) {
             history.push("/error");
         }
+        finally {
+            set_title("");
+        }
 
     }
 
