@@ -1,7 +1,6 @@
-export function display_all_animes(title, animes) {
+export function display_all_animes(animes) {
     return(
         <div className="container">
-            <h2>Recommendations for: {title}</h2>
             <div className="recoms_container">
                 {
                     animes.map((anime) => 

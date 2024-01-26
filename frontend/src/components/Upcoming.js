@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetch_data } from "../functions/Fetch";
+import { display_all_animes } from "../functions/DisplayAnime";
 
 function Upcoming() {
     const [upcoming_animes, set_upcoming_animes] = useState([]);
@@ -11,25 +12,14 @@ function Upcoming() {
 
     useEffect(() => {
         if(!upcoming_animes.length) {
-            console.log("lmao");
             fetch_upcoming_animes();
         }
     },[]);
 
-    function test(anime) {
-        console.log(anime);
-    }
-
     return (
         <div>
-            <h1>xdd</h1>
-            <p>Upcoming animes</p>
-            {upcoming_animes.length && upcoming_animes.map((anime) => 
-                <div key={anime["mal_id"]}>
-                    <p>{anime["title_english"]}</p>
-                </div>
-            )}
-
+            <h2>Upcoming animes:</h2>
+            {upcoming_animes && display_all_animes(upcoming_animes)}
         </div>
     );
 }

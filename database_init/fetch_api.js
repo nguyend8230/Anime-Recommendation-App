@@ -1,50 +1,20 @@
-// mal_id, anime name, anime english name, studios, synopsis, genres, themes
-var anime_list = {
-    "mal_id": [],
-    "url": [],
-    "image_url": [],
-    "title": [],
-    "title_english": [],
-    "synopsis": [],
-    "studios": [],
-    "genres": [],
-    "themes": [],
-};
-
 async function sleep(millis) {
     return new Promise((resolve,reject) => {
         setTimeout(() => resolve(), millis);
     });
 }
 
-async function fetch_anime(url) {
+async function fetch_data(url) {
     return new Promise((resolve,reject) => {
         fetch(url)
             .then(response => {
-                // Check if the request was successful (status code 200-299)
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                // Parse the response as JSON
                 return response.json();
             })
-            .then(data => {
-                // console.log(data.data[0].images.webp.image_url)
-                for(let anime of data.data) {
-                    anime_list["mal_id"].push(anime.mal_id);
-                    anime_list["url"].push(anime.url);
-                    anime_list["image_url"].push(anime.images.webp.image_url);
-                    anime_list["title"].push(anime.title);
-                    anime_list["title_english"].push(anime.title_english);
-                    anime_list["synopsis"].push(anime.synopsis);
-                    anime_list["studios"].push(anime.studios.map(obj=>obj.name));
-                    anime_list["genres"].push(anime.genres.map(obj=>obj.name));
-                    anime_list["themes"].push(anime.themes.map(obj=>obj.name));
-                }
-                console.log(data.data[0].title_english);
-                resolve("xdd");
+            .then((data) => {
+                resolve(data);
             })
-            .catch(error => {
-                // Handle errors
-                console.error("Error:", error.message);   
+            .catch((error) => {
                 reject(error.message); 
             });
     }); 
@@ -65,15 +35,34 @@ async function fetch_all_anime(count) {
     return new Promise(callback);
 }
 
+async function fetch_anime_by_page(page,anime_list) {
+    const data = await fetch_data(`https://api.jikan.moe/v4/anime?order_by=popularity&sort=asc&page=${page}`);
+    for(const anime of data.data) {
+        anime_list.push(anime);
+    }
+}
+
+async function fetch_anime_by_page_range(start,end,anime_list,cooldown) {
+    for(let i = start; i < end; i++) {
+        const data = await fetch_anime_by_page(i,anime_list);
+        console.log(i);
+        await sleep(cooldown);
+    }
+}
+
 function write_to_json(list, file_name) {
     const fs = require("fs");
     const json_data = JSON.stringify(list);
     fs.appendFile(file_name, json_data,(error) => console.log(error));
 }
 
-// fetch_anime("https://api.jikan.moe/v4/anime?order_by=popularity&sort=asc&page=1");
+var anime_list = []
 
-fetch_all_anime(120)
+fetch_anime_by_page_range(1,121,anime_list,1000)
     .then(() => {
+        console.log(anime_list.length);
         write_to_json(anime_list,"./json/anime_dataset.json");
     });
+
+// fetch_anime_by_range(1,121,anime_list,1000)
+//     .then(console.log(anime_list.length));

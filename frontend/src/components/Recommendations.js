@@ -48,7 +48,8 @@ function Recommendations() {
     return (
         <div className="Recommendations"> 
             {loading && <p>Loading...</p>}
-            {!loading && recommendations[mal_id] && display_all_animes(anime_info[mal_id].title, recommendations[mal_id])}
+            {!loading && recommendations[mal_id] && <h2>Recommendations for: {anime_info[mal_id].title}</h2>}
+            {!loading && recommendations[mal_id] && display_all_animes(recommendations[mal_id])}
         </div>
     );
 

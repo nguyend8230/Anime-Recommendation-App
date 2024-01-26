@@ -15,6 +15,9 @@ function App() {
         <LoadingContextProvider>
           <NavBar />
           <Switch>             
+            <Route exact path="/">
+              <MainPage/>
+            </Route>           
             <Route exact path="/upcoming">
               <Upcoming/>
             </Route>

@@ -1,7 +1,11 @@
 
+import { Link } from "react-router-dom";
 function MainPage() {
     return(
-        <p>This is the main page</p>
+        <div>
+            <p>This is the main page</p>
+            <Link to="/upcoming"> Upcoming animes</Link>
+        </div>
     );
 }
 
