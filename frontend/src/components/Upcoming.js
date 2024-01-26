@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetch_data } from "../Fetch";
+import { fetch_data } from "../functions/Fetch";
 
 function Upcoming() {
     const [upcoming_animes, set_upcoming_animes] = useState([]);
@@ -28,9 +28,8 @@ function Upcoming() {
                 <div key={anime["mal_id"]}>
                     <p>{anime["title_english"]}</p>
                 </div>
-            )
+            )}
 
-            }
         </div>
     );
 }

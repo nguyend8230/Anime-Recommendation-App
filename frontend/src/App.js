@@ -1,7 +1,7 @@
 import NavBar from "./components/NavBar";
 import Recommendations from "./components/Recommendations";
 import Error from "./components/Error";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import React from "react";
 import LoadingContextProvider from "./contexts/LoadingContext";
 import MainPage from "./components/MainPage";

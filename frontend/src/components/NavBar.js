@@ -1,7 +1,7 @@
-import {useContext, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import {fetch_data} from "../Fetch";
+import { fetch_data } from "../functions/Fetch";
 import { LoadingContext } from "../contexts/LoadingContext";
 
 function NavBar() {

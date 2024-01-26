@@ -1,8 +1,9 @@
-import {useState,useEffect, useContext} from "react";
-import {useParams, useHistory} from "react-router-dom";
+import { useState,useEffect, useContext } from "react";
+import { useParams, useHistory } from "react-router-dom";
 
-import {fetch_data} from "../Fetch";
+import {fetch_data} from "../functions/Fetch";
 import { LoadingContext } from "../contexts/LoadingContext";
+import { display_all_animes } from "../functions/DisplayAnime";
 
 function Recommendations() {
     const history = useHistory();
@@ -22,10 +23,12 @@ function Recommendations() {
             console.log(`fetched ${mal_id}`);
             try {
                 const data = await fetch_data(`http://localhost:4000/api/anime/recommendations/${mal_id}`);
+                const recoms = [];
                 for(let anime of data) {
                     anime_info[anime["mal_id"]] = anime;
+                    recoms.push(anime);
                 }
-                set_recommendations(recommendations => ({ ...recommendations, [mal_id]: anime_info[mal_id]["recommendations"] }));
+                set_recommendations(recommendations => ({ ...recommendations, [mal_id]: recoms}));
                 set_loading(false);
             }
             catch(error) {
@@ -42,32 +45,10 @@ function Recommendations() {
 
     },[mal_id]);
 
-    function display_recommendations() {
-        return(
-            <div className="container">
-                <h2>Recommendations for: {anime_info[mal_id]["title"]}</h2>
-                <div className="recoms_container">
-                    {
-                        recommendations[mal_id].map((id) => 
-                            <div className="recommendation" key = {id}> 
-                                <a href={anime_info[id]["url"]} target="_blank">
-                                    <img src={anime_info[id]["image_url"]}></img>
-                                </a>
-                                <a href={anime_info[id]["url"]} target="_blank">
-                                    {anime_info[id]["title"]}
-                                </a>
-                            </div>
-                        )
-                    }
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className="Recommendations"> 
             {loading && <p>Loading...</p>}
-            {!loading && recommendations[mal_id] && display_recommendations()}
+            {!loading && recommendations[mal_id] && display_all_animes(anime_info[mal_id].title, recommendations[mal_id])}
         </div>
     );
 
