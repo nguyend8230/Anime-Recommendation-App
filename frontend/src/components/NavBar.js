@@ -10,9 +10,9 @@ function NavBar() {
     const [title, set_title] = useState("");
     const {loading, set_loading} = useContext(LoadingContext);
 
-    async function search_anime() {
+    async function search_anime(anime_title) {
         set_loading(true);
-        const data = await fetch_data(`https://api.jikan.moe/v4/anime?q=${title}`);
+        const data = await fetch_data(`https://api.jikan.moe/v4/anime?q=${anime_title}`);
         try {
             history.push(`/anime/${data.data[0]["mal_id"]}`);
         }
@@ -32,12 +32,12 @@ function NavBar() {
 
     async function handle_search_bar_key_down(event) {
         if(event.key == "Enter") {
-            search_anime();
+            search_anime(title);
         }
     }
 
     async function handle_search_button_click() {
-        search_anime();
+        search_anime(title);
     }
 
     return(

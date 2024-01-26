@@ -4,6 +4,8 @@ import Error from "./components/Error";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import React from "react";
 import LoadingContextProvider from "./contexts/LoadingContext";
+import MainPage from "./components/MainPage";
+import Upcoming from "./components/Upcoming";
 
 function App() {
   
@@ -12,14 +14,16 @@ function App() {
       <div className="App">  
         <LoadingContextProvider>
           <NavBar />
-          <Switch>
+          <Switch>             
+            <Route exact path="/upcoming">
+              <Upcoming/>
+            </Route>
             <Route exact path="/anime/:mal_id">
-              <Recommendations />
+              <Recommendations/>
             </Route>
             <Route exact path="/error">
-              <Error />
+              <Error/>
             </Route>
-
           </Switch>
         </LoadingContextProvider>
       </div>

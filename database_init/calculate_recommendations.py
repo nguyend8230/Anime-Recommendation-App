@@ -20,4 +20,4 @@ export_data["recommendations"] = [[] for i in range(len(export_data))]
 for index,row in export_data.iterrows():
   sorted_v = sorted(enumerate(similarity[index]), key = lambda x: -x[1])
   recom_list = list(map(lambda x: df.iloc[x[0]]["mal_id"],sorted_v[0:20]))
-  export_data.at[index, "anime_recommendations"] = recom_list
+  export_data.at[index, "./json/anime_recommendations"] = recom_list

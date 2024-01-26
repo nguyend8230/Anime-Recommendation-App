@@ -75,5 +75,5 @@ function write_to_json(list, file_name) {
 
 fetch_all_anime(120)
     .then(() => {
-        write_to_json(anime_list,"anime_dataset.json");
+        write_to_json(anime_list,"./json/anime_dataset.json");
     });
