@@ -1,8 +1,8 @@
 import {useState,useEffect, useContext} from "react";
 import {useParams, useHistory} from "react-router-dom";
 
-import {fetch_data} from "./Fetch";
-import { LoadingContext } from "./contexts/LoadingContext";
+import {fetch_data} from "../Fetch";
+import { LoadingContext } from "../contexts/LoadingContext";
 
 function Recommendations() {
     const history = useHistory();

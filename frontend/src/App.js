@@ -1,6 +1,6 @@
-import NavBar from "./NavBar";
-import Recommendations from "./Recommendations";
-import Error from "./Error";
+import NavBar from "./components/NavBar";
+import Recommendations from "./components/Recommendations";
+import Error from "./components/Error";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import React from "react";
 import LoadingContextProvider from "./contexts/LoadingContext";
