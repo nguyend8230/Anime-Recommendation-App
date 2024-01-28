@@ -10,7 +10,6 @@ const app = express();
 // middlewares
 app.use(cors());
 app.use(express.json());
-
 app.use("/api", anime_routes);
 
 mongoose.connect(process.env.URI)
