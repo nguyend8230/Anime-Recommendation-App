@@ -23,12 +23,12 @@ function Recommendations() {
             console.log(`fetched ${mal_id}`);
             try {
                 const data = await fetch_data(`http://localhost:4000/api/anime/${mal_id}/recommendations/`);
-                console.log(data);
                 const recoms = [];
                 for(let anime of data) {
                     anime_info[anime.mal_id] = anime;
                     recoms.push(anime);
-                } 
+                }
+
                 set_recommendations(recommendations => ({ ...recommendations, [mal_id]: recoms}));
                 set_loading(false);
             }
@@ -49,8 +49,8 @@ function Recommendations() {
     return (
         <div className="Recommendations"> 
             {loading && <p>Loading...</p>}
-            {/* {!loading && recommendations[mal_id] && <h2>Recommendations for: {anime_info[mal_id].title}</h2>}
-            {!loading && recommendations[mal_id] && display_all_animes(recommendations[mal_id])} */}
+            {!loading && recommendations[mal_id] && <h2>Recommendations for: {anime_info[mal_id].title}</h2>}
+            {!loading && recommendations[mal_id] && display_all_animes(recommendations[mal_id])}
         </div>
     );
 

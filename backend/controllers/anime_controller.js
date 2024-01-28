@@ -1,10 +1,15 @@
 const Anime = require("../models/anime_model");
 const Recommendation = require("../models/recommendation_model");
 
+var anime_info = {};
+
+var recommendations = {};
+
 async function get_anime_info(req,res) {
     const {mal_id} = req.params;
     Anime.find({mal_id: mal_id})
         .then((result) => {
+            anime_info[mal_id] = result;
             res.status(200).json(result);
         })
         .catch((error) => {
@@ -15,12 +20,14 @@ async function get_anime_info(req,res) {
 async function get_anime_recommendations(req,res) {
     const {mal_id} = req.params;
     const result = await Recommendation.find({mal_id: mal_id})
+    
     var recoms = [];
     for(let id of result[0].recommendations) {
-        console.log(id);
         const data = await Anime.find({mal_id: id});
-        recoms.push(data);
+        recoms.push(...data);
     }
+
+    recommendations[mal_id] = result[0].recommendations;
 
     res.status(200).json(recoms);
 }
