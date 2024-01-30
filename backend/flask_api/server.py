@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import requests
 from flask import Flask
 from flask_restful import Api, Resource
+from flask_cors import CORS
 from pymongo import MongoClient
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
@@ -12,6 +13,7 @@ load_dotenv()
 URI = os.getenv("URI")
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 upcoming_animes = []

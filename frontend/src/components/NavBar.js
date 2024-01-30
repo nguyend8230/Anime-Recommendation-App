@@ -14,7 +14,7 @@ function NavBar() {
         set_loading(true);
         const data = await fetch_data(`https://api.jikan.moe/v4/anime?q=${anime_title}`);
         try {
-            history.push(`/anime/${data.data[0]["mal_id"]}`);
+            history.push(`/anime/${data.data[0]["mal_id"]}/recommendations`);
         }
         catch(error) {
             history.push("/error");

@@ -5,7 +5,7 @@ export function display_all_animes(animes) {
             <div className="recoms_container">
                 {
                     animes.map((anime) => 
-                        <div className="recommendation" key = {anime._id}> 
+                        <div className="recommendation" key = {anime.mal_id}> 
                             <a href={anime.url} target="_blank">
                                 <img src={anime.images.webp.image_url}></img>
                             </a>
