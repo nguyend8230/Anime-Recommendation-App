@@ -23,7 +23,7 @@ async function get_anime_recommendations(req,res) {
         res.status(200).json(recommendations[mal_id]);
     }
     else {
-        const result = await Recommendation.find({mal_id: mal_id})
+        const result = await Recommendation.find({mal_id: mal_id});
         var recoms = [];
         for(let id of result[0].recommendations) {
             const data = await Anime.find({mal_id: id});

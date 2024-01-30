@@ -11,8 +11,8 @@ df["tags"] = df["studios"]+","+df["genres"]+","+df["themes"]
 df = df.drop(columns=["synopsis","studios","genres","themes"])
 
 cv = CountVectorizer(max_features=len(df), stop_words="english")
-vector = cv.fit_transform(df["tags"].values.astype("U")).toarray()
-similarity = cosine_similarity(vector)
+vector = cv.fit_transform(df.iloc["tags"].values.astype("U")).toarray()
+similarity = cosine_similarity(vector[-1])
 
 export_data = df.drop(columns=["tags"])
 export_data["recommendations"] = [[] for i in range(len(export_data))]
