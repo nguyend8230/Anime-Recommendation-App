@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import {fetch_data} from "../functions/Fetch";
 import { LoadingContext } from "../contexts/LoadingContext";
 import { display_all_animes } from "../functions/DisplayAnime";
+import CurrentUpcomingAnimeToggle from "./CurrentUpcomingAnimeToggle";
 
 function Recommendations() {
     const history = useHistory();
@@ -48,6 +49,7 @@ function Recommendations() {
 
     return (
         <div className="Recommendations"> 
+            <CurrentUpcomingAnimeToggle />
             {loading && <p>Loading...</p>}
             {!loading && recommendations[mal_id] && <h2>Recommendations for: {anime_info[mal_id].title}</h2>}
             {!loading && recommendations[mal_id] && display_all_animes(recommendations[mal_id])}
