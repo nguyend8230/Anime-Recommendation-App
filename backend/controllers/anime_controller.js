@@ -1,9 +1,13 @@
+require("dotenv").config();
+const redis = require("redis");
 const Anime = require("../models/anime_model");
 const Recommendation = require("../models/recommendation_model");
 
 var anime_info = {};
-
 var recommendations = {};
+
+const client = redis.createClient(process.env.REDIS_PORT);
+client.connect();
 
 async function get_anime_info(req,res) {
     const {mal_id} = req.params;
@@ -19,6 +23,7 @@ async function get_anime_info(req,res) {
 
 async function get_anime_recommendations(req,res) {
     const {mal_id} = req.params;
+
     if(mal_id in recommendations) {
         res.status(200).json(recommendations[mal_id]);
     }
@@ -31,7 +36,6 @@ async function get_anime_recommendations(req,res) {
         }
         recommendations[mal_id] = recoms;
         res.status(200).json(recoms);
-
     }
 }
 

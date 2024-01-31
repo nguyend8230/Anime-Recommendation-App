@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "concurrently \"nodemon server.js\" \"npm run flask_api_server\"",
-    "flask_api_server": "python flask_api/server.py" 
+    "flask_api_server": "python flask_api/server.py"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +16,8 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^8.0.3",
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "redis": "^4.6.12"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

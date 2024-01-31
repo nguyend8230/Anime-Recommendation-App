@@ -9,5 +9,4 @@ const router = express.Router();
 router.get("/anime/:mal_id/recommendations/", get_anime_recommendations);
 router.get("/anime/:mal_id/info", get_anime_info);
 
-
 module.exports = router;

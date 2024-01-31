@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 import requests
 from flask import Flask
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, abort
 from flask_cors import CORS
 from pymongo import MongoClient
 import pandas as pd
@@ -22,7 +22,7 @@ class upcoming_recommendations_calculator(Resource):
     def __init__(self):
         client = MongoClient(URI)
         db = client.get_database("anime_recommendations")
-        self.animes_info = db.tests
+        self.animes_info = db.animes
 
     def fetch_anime_info(self, mal_id):
         return self.animes_info.find_one({"mal_id": mal_id})
@@ -47,12 +47,15 @@ class upcoming_recommendations_calculator(Resource):
     def get(self, mal_id):
         # fetch the info of the anime that we are querying for
         queried_anime_info = self.fetch_anime_info(mal_id)
+
+        if not queried_anime_info:
+            abort(404, message="Anime not found...")
+
         queried_anime_info.pop("_id")
 
         # temporarily put the anime that we are querying for into the list of upcoming animes
         # we will pop it out of the list later
         upcoming_animes.append(queried_anime_info)
-
         upcoming_animes_ordered_by_similarity = self.calculate_upcoming_recommendations()
         recommendations = list(map(lambda x: upcoming_animes[x[0]], upcoming_animes_ordered_by_similarity))
 
